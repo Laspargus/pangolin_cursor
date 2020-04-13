@@ -12,16 +12,21 @@ function startDrag(e) {
   e.preventDefault();
   console.log("dragging activated");
   isDragging = true;
-}
+  const x = e.clientX;
+  const y = e.clientY;
 
-window.addEventListener("mousemove", movePang);
-function movePang(e) {
-  if (isDragging === true) {
-    console.log("dragging in progressions");
-    const x = e.clientX;
-    const y = e.clientY;
-    pang.style.transform = `translate(${x - 40}px, ${y - 40}px)`;
-    pang.style.cursor = "grabbing";
+  let shiftX = x - pang.getBoundingClientRect().left;
+  let shiftY = y - pang.getBoundingClientRect().top;
+
+  window.addEventListener("mousemove", movePang);
+  function movePang(e) {
+    if (isDragging === true) {
+      console.log("dragging in progressions");
+      const x = e.clientX;
+      const y = e.clientY;
+      pang.style.transform = `translate(${x - shiftX}px, ${y - shiftY}px)`;
+      pang.style.cursor = "grabbing";
+    }
   }
 }
 
